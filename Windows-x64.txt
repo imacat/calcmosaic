@@ -1,0 +1,42 @@
+Information running on Windows x64
+
+    If you are running on MS Windows x64, you might not be able to
+run calcmosaic.jar just by double-clicking it.  If you go to the
+command line and run:
+
+java -jar calcmosaic.jar
+
+    You may see the following error message
+
+Exception in thread "main" java.lang.UnsatisfiedLinkError:
+C:\Users\<login>\AppData\Local\Temp\unowinreg1072712583236131558.dll:
+Can't load IA 32-bit .dll on a AMD 64-bit platform
+
+    (If you do not experience such problem, that is fine.)
+
+    The reason behind this is that, the unowinreg.dll shipped with
+OpenOffice SDK to find and run OpenOffice has only a 32-bit version,
+which cannot be run with your 64-bit Java VM.  Currently 64-bit
+unowinreg.dll is not available yet.  This has already been reported:
+
+https://issues.apache.org/ooo/show_bug.cgi?id=121258
+
+    You may try one of the following workarounds:
+
+ 1. Install 32-bit Java JRE on top of your 64-bit Java JRE.
+
+ 2. If you already have 32-bit Java JRE and 64-bit Java JRE installed
+    together, with 64-bit Java JRE on top of 32-bit Java JRE, you
+    may run from the command line with full path:
+
+"C:\Program Files (x86)\Java\jre7\bin\java.exe" -jar calcmosaic.jar
+
+    Alternatively, you may install WinJava64.reg that come with
+    this package.  This will change the file association so that
+    .jar files will be run with 32-bit Java JRE in the future.
+
+    Thanks to 李振 goodser456@hotmail.com for helping me notice
+this problem.
+
+imacat <imacat@mail.imacat.idv.tw>
+2012/10/29

@@ -1,0 +1,70 @@
+NEWS in calcmosaic
+
+2.1.0
+	* Better user interface processing:  Added an icon, shortcut keys,
+	  button focus, enter key, the number of chosen files, etc.
+	* Added information and WinJava64.reg for the problem running on
+	  MS Windows 64-bit with 64-bit Java JRE.  See:
+	  https://issues.apache.org/ooo/show_bug.cgi?id=121258
+
+2.0.0
+	* You can run calcmosaic.jar from the file manager.  An
+	  option dialog was added to obtain the options with GUI.
+	* You can now run in the 0.x mode that paint the mosaic sheet cell
+	  by cell, for presentation, by using the -slow switch.
+    * Better localized in Traditional Chinese.
+	* Errors are better handled.  Error messages are shown in either
+	  STDERR or message box automatically.  Errors reading from
+	  non-image files are handled.
+	* The end-of-run message will not block for the user input when
+	  running from console.
+	* An API to return mosaic color data is added.
+	* Many minor fixes.
+
+1.0.3
+	* Fixed build.xml includeantruntime warning.
+	* Changed case of thisComponent to ThisComponent.
+
+1.0.2
+	* Fixed Javadoc problems.
+
+1.0.1
+	* Removed unused algorithms to calculate the mosaic cell color.
+
+1.0.0
+	* Rewritten to be faster (about 8 times faster).  Most of
+	  program is now OpenOffice BASIC.  The Java program actually
+	  injects OpenOffice BASIC macros into the document and run it.
+	  Unlike Java UNO, OpenOffice BASIC does not refresh the display
+	  for each UNO command.  The execution is now a LOT faster.
+	* Added the play script and the start buttons, to help playing
+	  the spreadsheet stop-motion.
+
+0.2.1
+	* Added a maximum check for the number of images used.  This
+	  users from errors after hours of work of conversion.
+	* Added HISTORY for the story behind Calc Mosaic.
+	* Added explanation for the FFMPEG command to use for grabbing
+	  snapshots.
+
+0.2.0
+	* Added the ability to convert multiple images.
+	* Added the ability to calculate the mosaic cell size
+	  automatically.
+	* Added command line options and help.
+	* Changed the option mosaic cell size to maximum number of
+	  rows to use, to make it easier (and more meaningful) to
+	  the users.
+	* Changed the algorithm to calculate the color of the mosaic
+	  cell, to have sharper result on the edges.
+
+0.1.2
+	* 0.1.1 mistakenly packaged 0.1.0 along with 0.1.1, and this is
+	  fixed.
+
+0.1.1
+	* License changed from GPLv3 to Apache License v2.
+
+0.1.0
+	* Initial release
+

@@ -1,0 +1,66 @@
+Calc Mosaic README
+
+
+INTRODUCTION
+
+    Calc Mosaic is a program to create mosaic art from images with
+OpenOffice Calc.  This can be used to create cool stop motion movies.
+
+    See HISTORY for the story behind Calc Mosaic.
+
+
+COMPILATION
+
+    You need JDK, Apache ANT and OpenOffice SDK in order to compile
+this program.
+
+    You need juh.jar, jurt.jar, ridl.jar and unoil.jar in order to
+compile the source.  They can be found in OpenOffice SDK.
+
+${OpenOffice Installation}/ure/share/java/juh.jar
+${OpenOffice Installation}/ure/share/java/jurt.jar
+${OpenOffice Installation}/ure/share/java/ridl.jar
+${OpenOffice Installation}/basis3.4/program/classes/unoil.jar
+
+    Just copy them into the lib/ directory and they will work.  Also
+You may want to review the property value of ooo.dir.sdk-classes in
+build.xml.
+
+    To compile, simply type "ant compile".  Type "ant jar" will
+create the jar file.  Type "ant help" for more information.
+
+    Alternatively, there is a pre-compiled jar file here within
+the distribution.
+
+
+USAGE
+
+    Type "java -jar calcmosaic.jar -help" to display a simple help.
+
+    The snapshots of a video can be grabbed using ffmpeg:
+
+ffmpeg -i video.mp4 -r <framerate> -sameq -y -f image2 img%04d.jpg
+
+    Note that a spreadsheet document can only contain at most 256
+spreadsheets.
+
+    Save file first for the macro to work.
+    
+    Hit the start button at A1 of the first and last sheet to play
+the sheets.
+
+    You can set the break time (in milliseconds) between sheets at
+B1 of the first sheet (default 100 ms).
+
+    You can set the background music at C1 of the first sheet.  This
+only works on Linux and you must install mplayer.  Relative file path
+is relative to the document file.  Play once before your live show to
+avoid the I/O delay with cache.
+
+    If you found problem running on Windows X64, see Windows-x64.txt.
+
+    Hope you like it! ^_*'
+
+imacat ^_*'
+imacat@mail.imacat.idv.tw
+2012-08-24

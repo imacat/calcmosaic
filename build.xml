@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+   Copyright (c) 2012 imacat.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<!-- build.xml: The Ant build file for the Calc Mosaic creator -->
+<!--   by imacat <imacat@mail.imacat.idv.tw>, 2012-08-12 -->
+<project name="calcmosaic" default="help" basedir=".">
+<!-- property: Build variables -->
+<loadfile property="project.version" srcfile="${basedir}/VERSION">
+    <filterchain>
+        <striplinebreaks />
+    </filterchain>
+</loadfile>
+<property name="src.dir" value="${basedir}/src" />
+<property name="lib.dir" value="lib" />
+<property name="build.dir" value="build" />
+<property name="classes.dir" value="${build.dir}/classes" />
+<property name="jar.dir" value="${basedir}" />
+<property name="jar.path" value="${jar.dir}/${ant.project.name}.jar" />
+<property name="docs.dir" value="${basedir}/docs" />
+<property name="dist.build.dir" value="${build.dir}/dist" />
+<property name="dist.dir" value="${basedir}" />
+<property name="ooo.dir.sdk-classes" value="/opt/openoffice.org3/basis-link/sdk/classes" />
+<condition property="main-class" value="tw.idv.imacat.calcmosaic.CalcMosaic">
+    <not>
+        <isset property="main-class" />
+    </not>
+</condition>
+
+<!-- -set-ooo-classpath: Set the OpenOffice class path -->
+<target name="-set-ooo-classpath">
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar" />
+    </path>
+</target>
+
+<!-- help: Display the help information -->
+<target name="help">
+    <echo level="info" message="Available targets:" />
+    <echo level="info" message=" compile:  Compile the source" />
+    <echo level="info" message=" jar:      Create the jar archive as ${jar.path}" />
+    <echo level="info" message=" run:      Run the program" />
+    <echo level="info" message=" docs:     Generate the documents in ${docs.dir}" />
+    <echo level="info" message=" dist:     Create the pacakge distribution as ${ant.project.name}-${project.version}.zip" />
+    <echo level="info" message=" clean:    Clean-up the build files" />
+    <echo level="info" message=" help:     Display this help" />
+</target>
+
+<!-- compile: Compile the source -->
+<target name="compile" depends="-set-ooo-classpath">
+    <mkdir dir="${classes.dir}" />
+    <translate todir="${classes.dir}"
+        bundle="${src.dir}/tw/idv/imacat/calcmosaic/res/L10n"
+        starttoken="#" endtoken="#">
+        <fileset dir="${src.dir}">
+            <include name="**/*.properties" />
+        </fileset>
+    </translate>
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" encoding="utf-8"
+            classpathref="classpath" debug="true" includeantruntime="false">
+        <compilerarg value="-Xlint:unchecked" />
+    </javac>
+</target>
+
+<!-- jar: Create the jar archive -->
+<target name="jar" depends="compile">
+    <mkdir dir="${jar.dir}" />
+    <echo level="info" message="ooo.dir.sdk-classes=${ooo.dir.sdk-classes}" />
+    <jar destfile="${jar.path}" basedir="${classes.dir}">
+        <fileset dir="${basedir}" includes="images/*" />
+        <zipfileset src="${lib.dir}/juh.jar" />
+        <zipfileset src="${lib.dir}/jurt.jar" />
+        <zipfileset src="${lib.dir}/ridl.jar" />
+        <zipfileset src="${lib.dir}/unoil.jar" />
+        <fileset dir="${ooo.dir.sdk-classes}" includes="**/*.class **/*.dll" />
+        <manifest>
+            <attribute name="Main-Class"
+                value="com.sun.star.lib.loader.Loader" />
+            <section name="com/sun/star/lib/loader/Loader.class">
+                <attribute name="Application-Class" value="${main-class}" />
+            </section>
+        </manifest>
+    </jar>
+</target>
+
+<!-- run: Run the program -->
+<target name="run" depends="jar">
+    <java jar="${jar.path}" fork="true" failonerror="true" />
+</target>
+
+<!-- docs: Generate the API document -->
+<target name="docs" depends="-set-ooo-classpath">
+    <mkdir dir="${docs.dir}" />
+    <javadoc sourcepath="${src.dir}" destdir="${docs.dir}" encoding="utf-8"
+        classpathref="classpath" />
+</target>
+
+<!-- -distdir: Create the distribution directory -->
+<target name="-distdir" depends="jar,docs">
+    <copy todir="${dist.build.dir}/${ant.project.name}-${project.version}"
+            preservelastmodified="true">
+        <fileset dir="${basedir}"
+            excludes="${build.dir}/ ${lib.dir}/ ${ant.project.name}-*.zip" />
+    </copy>
+</target>
+
+<!-- dist: Create the pacakge distribution -->
+<target name="dist" depends="-distdir">
+    <zip destfile="${dist.dir}/${ant.project.name}-${project.version}.zip"
+        basedir="${dist.build.dir}" />
+</target>
+
+<!-- clean: Clean-up the build files -->
+<target name="clean">
+    <delete dir="${build.dir}" />
+    <delete dir="${docs.dir}" />
+    <delete file="${jar.path}" />
+    <delete verbose="true">
+        <fileset file="${dist.dir}/${ant.project.name}-*.zip*" />
+    </delete>
+</target>
+
+<!-- lib-clean: Clean-up the build files -->
+<target name="lib-clean" depends="clean" />
+
+<!-- distclean: A duplicate to the clean target, for convienence -->
+<target name="distclean" depends="clean" />
+</project>

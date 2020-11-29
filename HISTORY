@@ -1,0 +1,69 @@
+The story of CalcMosaic:
+
+===================================================================
+    Villeroy's work inspired me the idea to pass the color value to
+the BASIC macros in order to run faster.
+
+http://forum.openoffice.org/en/forum/viewtopic.php?f=49&t=55857
+
+    But in the end I still cannot understand Villeroy's code.  He
+uses styles which I believe is faster.  But it runs in a different
+way than my Calc Mosaic.  I cannot adapt his method.  Also, I really
+can not understand how the data work for his horse.  He is so smart.
+
+    Here is my own version.  It is 8 times faster than the previous
+version.  Now I learned how to inject and run OpenOffice BASIC macros
+with Java UNO.  I also learned that each Java UNO command triggers a
+display refresh, which is costly.  OpenOffice BASIC macros does not
+trigger refresh, which is why it is faster.
+
+    Thanks for the people in the OpenOffice track of ApacheCon EU
+2012, that I have a chance to review my code, rewrite it and
+demostrate it.
+
+imacat ^_*'
+imacat@mail.imacat.idv.tw
+2012-10-08
+
+===================================================================
+    The origin of this is a video "Stop-Motion Excel" posted on
+YouTube on 2012-08-09.
+
+http://www.youtube.com/watch?v=Fq9EV2fYF2E
+
+    This video quickly caught the media discusussion.  Not only
+because it is cool, but also that viewers found the author is not
+using Excel, but OpenOffice Calc.  This draw a discussion in the
+OpenOffice development list, too.  After watching the video, I feel I
+can do it programmatically.
+
+http://www.youtube.com/watch?v=AlA7HFwxDSU
+
+    (The original Apple iPod Ad)
+
+http://www.youtube.com/watch?v=NlHUz99l-eo
+
+    And then I presented it in the lightning talk in COSCUP 2012
+Taiwan a week after, on 2012-08-18.
+
+http://www.youtube.com/watch?v=tEhz0zNmTFQ
+
+    The files used in the presentation is here for download. ^_*'
+
+http://people.apache.org/~imacat/stop-motion-calc.zip
+
+    There is a hidden black button at A1 of the first sheet.  Click
+on the button to start the animation.
+
+    It seems that the talk without talk and the fresh-typed
+presentation is too cool that many people did not notice what I
+presented. :p  But it helps to fill up the room when I presented an
+introduction to Apache OpenOffice 3.4 the next day.
+
+    Welcome to download and try Calc Mosaic.
+
+    Hope you like it!   Your comment is welcome! ^_*'
+
+imacat ^_*'
+imacat@mail.imacat.idv.tw
+2012-08-24
